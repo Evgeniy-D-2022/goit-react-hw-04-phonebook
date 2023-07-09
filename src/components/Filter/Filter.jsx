@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Filter = ({ filter, onFilterChange }) => {
     return ( 
-        <label className={css.filter__label} htmlFor="">Find contacts by name
+        <label className={css.filter__label}>Find contacts by name
         <input
         className={css.filter__input}
         type="text"

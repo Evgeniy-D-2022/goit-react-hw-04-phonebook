@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Contacts = ({ contacts, onDeleteContact }) => {
 
     return (
-        <>
+      
         <ul className={css.contacts__list}>
         {contacts.map(contact => 
           (<li className={css.contacts__item} key={contact.id}>
@@ -23,7 +23,7 @@ const Contacts = ({ contacts, onDeleteContact }) => {
             </li>
           ))}
       </ul>
-        </>
+       
     )}
 
     Contacts.propTypes = {
