@@ -5,13 +5,10 @@ import Contacts from "./Contacts/Contacts";
 import { nanoid } from 'nanoid'
 import Filter from "./Filter/Filter";
 import Notiflix from "notiflix";
-// import addedContacts from '';
-
-// const KEY = 'addedContacts';
 
 const App = () => {
   const [contacts, setContacts] = useState(
-    () => (JSON.parse(localStorage.getItem('contacts')) ?? addedContacts)
+    () => (JSON.parse(localStorage.getItem('contacts')) ?? [])
     );
   const [filter, setFilter] = useState('');
 
@@ -20,7 +17,7 @@ const App = () => {
   }, [contacts]);
   
   const createContact = ({ name, number }) => {   
-    const contact = { name, number, id: nanoid() };
+    const contact = { name, number, id: nanoid(), };
 
     if (contacts.find(
         contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -29,7 +26,7 @@ const App = () => {
       Notiflix.Notify.warning(`${name} is already in contacts.`);
       // return;
     } else {
-      setContacts(prevContact => [contact, ...prevContact])
+      setContacts(prevContacts => [contact, ...prevContacts])
       Notiflix.Notify.success(`${contact.name} contact add your phonebook`) 
     }
   //  return;
@@ -41,16 +38,16 @@ const App = () => {
   };
 
   const deleteContact = contactId => {
-    setContacts(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+    setContacts(prevContact => 
+      prevContact.filter(contact => contact.id !== contactId),
+    )
   };
 
   const showContacts = () => {
-      contacts.filter(contact =>
-        contact.name.toLowerCase().includes(filter.toLowerCase()));      
-    } 
-
+    return (contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())))
+  }
+     
     return (
       
         <div className={css.container}>
